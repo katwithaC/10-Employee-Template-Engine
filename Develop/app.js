@@ -93,7 +93,13 @@ const addIntern = [
 ];
 
 
-
+function writeHTMLFile(filename, data) {
+    fs.writeFile (filename, data, function(err) {
+        if(err) {
+            console.log(err)
+        }
+    })
+}
 
 
 
