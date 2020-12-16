@@ -13,84 +13,112 @@ const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
-const emplyees = [];
+const employees = [];
 
-const addManager = [
-    {
-        type: 'input',
-        name: 'name',
-        message: 'What is your Managers name?'
-    },
 
-    {
-        type: 'input',
-        name: 'id',
-        message: 'What is your Managers id?'
-    },
 
-    {
-        type: 'input',
-        name: 'email',
-        message: 'What is your Managers email?'
-    },
+function addManager() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'What is your Managers name?'
+        },
+    
+        {
+            type: 'input',
+            name: 'id',
+            message: 'What is your Managers id?'
+        },
+    
+        {
+            type: 'input',
+            name: 'email',
+            message: 'What is your Managers email?'
+        },
+    
+        {
+            type: 'input',
+            name: 'officeNumber',
+            message: 'What is your managers office number?'
+        },
+    ]).then(answers => {
+        const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
+        employees.push(manager);
 
-    {
-        type: 'input',
-        name: 'officeNumber',
-        message: 'What is your managers office number?'
-    },
-];
+        buildTeam();
+    })
+}
 
-const addEngineer = [
-    {
-        type: 'input',
-        name: 'name',
-        message: 'What is the Engineers name?'
-    },
-    {
-        type: 'input',
-        name: 'id',
-        message: 'What is the Engineers id?'
-    },
+function addEngineer() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'What is the Engineers name?'
+        },
+        
+        {
+            type: 'input',
+            name: 'id',
+            message: 'What is the Engineers id?'
+        },
+    
+        {
+            type: 'input',
+            name: 'email',
+            message: 'What is the Enineers email?'
+        },
+    
+        {
+            type: 'input',
+            name: 'github',
+            message: 'What is the Engineers github username?'
+        },
+    ]).then(answers => {
+        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
+        employees.push(engineer);
 
-    {
-        type: 'input',
-        name: 'email',
-        message: 'What is the Enineers email?'
-    },
+        buildTeam();
+    })
+}
 
-    {
-        type: 'input',
-        name: 'github',
-        message: 'What is the Engineers github username?'
-    },
-];
+    
 
-const addIntern = [
-    {
-        type: 'input',
-        name: 'name',
-        message: 'What is the Interns name?'
-    },
+function addIntern() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'What is the Interns name?'
+        },
+    
+        {
+            type: 'input',
+            name: 'id',
+            message: 'What is the Interns id?'
+        },
+    
+        {
+            type: 'input',
+            name: 'email',
+            message: 'What is the Interns email?'
+        },
+    
+        {
+            type: 'input',
+            name: 'school',
+            message: 'What school is the Intern attending?'
+        },
+    ]).then(answers => {
+        const intern = new Intern(answers.name, answers.id, answers.email, answers.school);
+        employees.push(intern);
 
-    {
-        type: 'input',
-        name: 'id',
-        message: 'What is the Interns id?'
-    },
+        buildTeam();
+    })
+}
 
-    {
-        type: 'input',
-        name: 'email',
-        message: 'What is the Interns email?'
-    },
 
-    {
-        type: 'input',
-        name: 'school',
-        message: 'What school is the Intern attending?'
-    },
-];
 
 
 function writeHTMLFile(filename, data) {
